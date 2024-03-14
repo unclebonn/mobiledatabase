@@ -1,0 +1,6 @@
+require("./cart")
+require("./cart-detail")
+require("./categories")
+require("./customer")
+require("./product")
+require("./transaction")
