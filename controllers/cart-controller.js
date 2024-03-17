@@ -18,7 +18,7 @@ exports.getCart = async (req, res, next) => {
     const id = req.params.id
     const data = await Cart.findOne({ customer: id })
         .populate("customer")
-        // .exec();
+    // .exec();
 
     console.log(data);
 
@@ -28,19 +28,26 @@ exports.getCart = async (req, res, next) => {
 }
 
 exports.getCartDetail = async (req, res, next) => {
-    const id = req.params.id //cart id
+    const customerId = req.params.id // nhan vao id customer de tim san pham chi tiet trong gio hang
+    console.log("customerID", customerId);
 
-    const customer = await Customer.findById(id)
+    const data = await CartDetail.find({}).populate("cart").exec((err, cartDetail) => {
+        if (err) {
+            res.json({
+                message: "There is something wrong"
+            })
+        } else {
+            const data = cartDetail.filter((cartDetail) => cartDetail.cart.customer == customerId && cartDetail.status == "pending");
 
-    const cart = await Cart.findOne({customer: customer._id});
-
-    const data = await CartDetail
-        .find({ cart: cart._id })
-        .populate("product").exec()
-
-    res.status(200).json({
-        customer: customer,
-        data: data
+            res.status(200).json({
+                customerId,
+                data
+            })
+        }
     })
+
+
+
+
 
 }

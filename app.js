@@ -12,6 +12,7 @@ const { default: mongoose } = require('mongoose');
 const { cartRouter } = require('./routes/cart');
 const { cartDetailRouter } = require('./routes/cart-detail');
 const { categoryRouter } = require('./routes/category');
+const { transactionRouter } = require('./routes/transaction');
 
 var app = express();
 
@@ -48,6 +49,7 @@ app.use('/api/cart', cartRouter);
 app.use('/api/cartdetail', cartDetailRouter)
 app.use('/api/product', productRouter)
 app.use('/api/category', categoryRouter)
+app.use("/api/transaction", transactionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
