@@ -6,7 +6,7 @@ const cartRouter = express.Router()
 
 cartRouter
     .route("/create")
-    .post(checkTokenAccess, createCart)
+    .post(createCart)
 cartRouter
     .route("/:id")
     .get(checkTokenAccess, getCart)

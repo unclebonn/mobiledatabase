@@ -3,17 +3,18 @@ const { Customer } = require("../models/customer")
 
 exports.createCustomer = async (req, res, next) => {
     const customerInfo = req.body
-    try{
+    console.log(customerInfo);
+    try {
         const data = await Customer.create(customerInfo);
-        if(data){
+        if (data) {
             res.status(201).json({
                 data,
                 message: "Create new customer success"
             })
         }
-    }catch{
+    } catch (error) {
         res.json({
-            message:"Fail to create customer"
+            message: error
         })
     }
 
@@ -26,8 +27,8 @@ exports.getCustomer = async (req, res, next) => {
 
     res.status(200).json({
         data,
-        message:"Get customer successs"
+        message: "Get customer successs"
     })
 
-    
+
 }

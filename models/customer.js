@@ -1,8 +1,10 @@
 const { default: mongoose } = require("mongoose");
 
 const customerSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
+    uid: {
+        type: String,
+        require: true,
+        unique: true
     },
     email: {
         type: String,

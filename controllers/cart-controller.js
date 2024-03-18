@@ -5,12 +5,12 @@ const { Customer } = require("../models/customer")
 
 
 exports.createCart = async (req, res, next) => {
-    const customer = { "customer": mongoose.Types.ObjectId(req.body.customer), }
+    const customer = { customer: mongoose.Types.ObjectId(req.body.customer), }
     const data = await Cart.create(customer)
 
     res.status(201).json({
-        message: "Create cart succesfully",
-        data
+        data: data,
+        message: "Create cart succesfully"
     })
 }
 
@@ -31,16 +31,16 @@ exports.getCartDetail = async (req, res, next) => {
     const customerId = req.params.id // nhan vao id customer de tim san pham chi tiet trong gio hang
     console.log("customerID", customerId);
 
-    const data = await CartDetail.find({}).populate("cart").exec((err, cartDetail) => {
+    const data = await CartDetail.find({}).populate("cart").populate("product").exec((err, cartDetail) => {
+        console.log(cartDetail);
         if (err) {
             res.json({
                 message: "There is something wrong"
             })
         } else {
-            const data = cartDetail.filter((cartDetail) => cartDetail.cart.customer == customerId && cartDetail.status == "pending");
+            const data = cartDetail.filter((cartDetail) => cartDetail.cart?.customer == customerId && cartDetail.status == "pending");
 
             res.status(200).json({
-                customerId,
                 data
             })
         }
