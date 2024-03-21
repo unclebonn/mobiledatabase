@@ -32,14 +32,14 @@ exports.getCartDetail = async (req, res, next) => {
     console.log("customerID", customerId);
 
     const data = await CartDetail.find({}).populate("cart").populate("product").exec((err, cartDetail) => {
-        console.log(cartDetail);
+        
         if (err) {
             res.json({
                 message: "There is something wrong"
             })
         } else {
             const data = cartDetail.filter((cartDetail) => cartDetail.cart?.customer == customerId && cartDetail.status == "pending");
-
+console.log(data);
             res.status(200).json({
                 data
             })

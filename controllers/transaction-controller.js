@@ -18,8 +18,8 @@ exports.getHistoryTransaction = async (req, res, next) => {
 
     const transactions = await Transaction.find({}).populate("cart")
         .exec((err, transaction) => {
-            const filterTransactionBelongToCustomer = transaction.filter((tran) => tran.cart.customer == customerId);
-
+            const filterTransactionBelongToCustomer = transaction.filter((tran) => tran.cart?.customer == customerId);
+		console.log(filterTransactionBelongToCustomer);
 
             res.status(200).json({
                 data: filterTransactionBelongToCustomer
