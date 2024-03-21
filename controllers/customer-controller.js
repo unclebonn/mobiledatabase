@@ -14,7 +14,7 @@ exports.createCustomer = async (req, res, next) => {
         }
     } catch (error) {
         res.json({
-            message: error
+            message: error,
         })
     }
 
